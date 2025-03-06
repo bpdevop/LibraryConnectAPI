@@ -51,6 +51,9 @@ jobs:
 
     - name: Login en Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  
+
+    - name: Configurar Docker Buildx
+      uses: docker/setup-buildx-action@v2
       
     - name: Construir la imagen Docker con caché
       uses: docker/build-push-action@v4
