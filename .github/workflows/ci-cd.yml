@@ -58,8 +58,8 @@ jobs:
     - name: Construir la imagen Docker con caché
       uses: docker/build-push-action@v4
       with:
-        context: ./LibraryConnectAPI/
-        file: ./LibraryConnectAPI/Dockerfile
+        context: .
+        file: LibraryConnectAPI/Dockerfile
         push: false
         tags: bpdevop/libraryconnectapi:latest
         cache-from: type=gha
