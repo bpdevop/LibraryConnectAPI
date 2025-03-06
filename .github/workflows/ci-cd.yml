@@ -52,8 +52,43 @@ jobs:
     - name: Login en Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  
       
-    - name: Construir la imagen Docker
-      run: docker build -t bpdevop/libraryconnectapi:latest -f LibraryConnectAPI/Dockerfile . --target final
+    - name: Construir la imagen Docker con caché
+      uses: docker/build-push-action@v4
+      with:
+        context: ./LibraryConnectAPI/
+        file: ./LibraryConnectAPI/Dockerfile
+        push: false
+        tags: bpdevop/libraryconnectapi:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
+    - name: Ejecutar contenedor para pruebas
+      run: |
+        docker run -d -p 8080:8080 --name test-container bpdevop/libraryconnectapi:latest
+        sleep 5  # Esperar 5 segundos para que la API arranque
+
+    - name: "Prueba: GET /api/products"
+      run: |
+        RESPONSE=$(curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8080/api/products)
+        if [ "$RESPONSE" -ne 200 ]; then
+          echo "❌ ERROR: El endpoint GET /api/products no responde correctamente. Código: $RESPONSE"
+          exit 1
+        else
+          echo "✅ GET /api/products respondió con éxito (200)"
+        fi
+
+    - name: "Prueba: GET /api/products/1"
+      run: |
+        RESPONSE=$(curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8080/api/products/1)
+        if [ "$RESPONSE" -ne 200 ]; then
+          echo "❌ ERROR: El endpoint GET /api/products/1 no responde correctamente. Código: $RESPONSE"
+          exit 1
+        else
+          echo "✅ GET /api/products/1 respondió con éxito (200)"
+        fi
+    
+    - name: Detener y eliminar el contenedor de pruebas
+      run: docker stop test-container && docker rm test-container
+      
     - name: Subir la imagen a Docker Hub
       run: docker push bpdevop/libraryconnectapi:latest
