@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryConnectAPI", "LibraryConnectAPI\LibraryConnectAPI.csproj", "{5ABEEB53-5865-45B5-8D06-0EF7EFCEDCCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryConnectAPI.Tests", "LibraryConnectAPI.Tests\LibraryConnectAPI.Tests.csproj", "{BD97553E-19B8-433F-BC88-BBE9C9420B81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5ABEEB53-5865-45B5-8D06-0EF7EFCEDCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ABEEB53-5865-45B5-8D06-0EF7EFCEDCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ABEEB53-5865-45B5-8D06-0EF7EFCEDCCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD97553E-19B8-433F-BC88-BBE9C9420B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD97553E-19B8-433F-BC88-BBE9C9420B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD97553E-19B8-433F-BC88-BBE9C9420B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD97553E-19B8-433F-BC88-BBE9C9420B81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
